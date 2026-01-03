@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   /* --- IMPORTAZIONE FONT (Montserrat per titoli, Open Sans per testi) --- */
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap');
@@ -14,6 +15,9 @@
     background-color: #ffffff;
     color: #333333;
     box-sizing: border-box;
+    width: 100%;
+    max-width: 900px;
+    padding: clamp(12px, 3vw, 40px);
   }
 
   .renetting-container * {
@@ -31,13 +35,13 @@
   }
 
   .h1-title {
-    font-size: 28px;
+    font-size: clamp(1.5rem, 6.5vw, 3rem);
     margin: 25px 0 40px 0;
     letter-spacing: 1px;
   }
 
   .h2-title {
-    font-size: 24px;
+    font-size: clamp(1.1rem, 4.5vw, 1.8rem);
     margin: 40px 0 20px 0;
   }
 
@@ -67,8 +71,8 @@
   .event-title {
     font-family: 'Montserrat', sans-serif;
     color: #E5554F;
-    font-size: 48px;
-    letter-spacing: 10px;
+    font-size: clamp(2rem, 10vw, 4.5rem);
+    letter-spacing: clamp(6px, 2.5vw, 12px);
     text-transform: uppercase;
     margin: 0 0 6px;
     text-shadow: 0 6px 12px rgba(0,0,0,0.06);
@@ -84,15 +88,15 @@
 
   .event-paragraph {
     color: #444;
-    font-size: 20px;
-    line-height: 1.9;
+    font-size: clamp(1rem, 2.6vw, 1.375rem);
+    line-height: 1.8;
     max-width: 900px;
     margin: 0 auto 14px;
   }
 
   @media (min-width: 768px) {
-    .event-title { font-size: 72px; letter-spacing: 12px; }
-    .event-paragraph { font-size: 22px; }
+    .event-title { font-size: clamp(2rem, 10vw, 4.5rem); letter-spacing: clamp(6px, 2.5vw, 12px); }
+    .event-paragraph { font-size: clamp(1rem, 2.6vw, 1.375rem); }
   }
 
   /* --- SEZIONE TESTIMONIANZE --- */
@@ -140,16 +144,22 @@
     scroll-snap-align: center;
     border-radius: 8px;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
   }
 
   .gallery-item img {
     width: 100%;
-    height: 300px; /* Altezza fissa per uniformità */
+    height: 100%;
     object-fit: cover;
     display: block;
     pointer-events: auto; /* <-- abilitato per permettere il click */
     user-select: none;
     cursor: pointer; /* indica che è cliccabile */
+  }
+
+  .gallery-item img:focus {
+    outline: 3px solid rgba(229,85,79,0.18);
+    outline-offset: 3px;
   }
 
   /* Lightbox / modal anteprima */
@@ -242,6 +252,7 @@
     .gallery-item {
       flex: 0 0 30%; /* Mostra ~3 immagini affiancate su desktop */
       width: auto;
+      aspect-ratio: 16 / 10;
     }
   }
 </style>
