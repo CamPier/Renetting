@@ -1,0 +1,6 @@
+[build]
+  publish = "."
+  command = ""
+
+# Nessuna build step: pubblichiamo la cartella radice così com'è.
+# Se in futuro aggiungi un processo di build (es. npm run build), imposta `command` di conseguenza.

@@ -1,3 +1,0 @@
-/renetting.html
-  Content-Type: application/pdf
-  Content-Disposition: inline; filename=renetting.html
