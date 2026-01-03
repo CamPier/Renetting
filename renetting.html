@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<style>
+  /* --- IMPORTAZIONE FONT (Montserrat per titoli, Open Sans per testi) --- */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+  /* --- STILI GENERALI (RESET) --- */
+  .renetting-container {
+    font-family: 'Open Sans', sans-serif;
+    max-width: 800px; /* Larghezza massima per PC per non disperdere l'occhio */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333333;
+    box-sizing: border-box;
+  }
+
+  .renetting-container * {
+    box-sizing: border-box;
+  }
+
+  /* --- TIPOGRAFIA --- */
+  .text-highlight {
+    color: #E5554F; /* Il rosso/arancio del video */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .h1-title {
+    font-size: 28px;
+    margin: 25px 0 40px 0;
+    letter-spacing: 1px;
+  }
+
+  .h2-title {
+    font-size: 24px;
+    margin: 40px 0 20px 0;
+  }
+
+  /* --- IMMAGINE HERO --- */
+  .hero-image-wrapper {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .hero-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* --- SEZIONE TESTIMONIANZE --- */
+  .testimonial-block {
+    text-align: center;
+    padding: 30px 10px;
+    border-bottom: 1px solid #eeeeee; /* Divisore sottile */
+  }
+
+  .testimonial-block:last-child {
+    border-bottom: none;
+  }
+
+  .quote-icon {
+    display: block;
+    margin: 0 auto 15px auto;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .quote-icon path {
+    fill: #E5554F; /* Colore virgolette */
+  }
+
+  .quote-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #444;
+    font-style: italic; /* Leggermente italico come citazione */
+  }
+
+  /* --- GALLERY (SCROLL ORIZZONTALE MODERN) --- */
+  .gallery-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Per smooth scroll su iOS */
+    scroll-behavior: smooth;
+  }
+
+  .gallery-item {
+    flex: 0 0 85%; /* Mobile: Mostra l'85% dell'immagine per invitare allo scroll */
+    scroll-snap-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 300px; /* Altezza fissa per uniformità */
+    object-fit: cover;
+    display: block;
+    pointer-events: auto; /* <-- abilitato per permettere il click */
+    user-select: none;
+    cursor: pointer; /* indica che è cliccabile */
+  }
+
+  /* Lightbox / modal anteprima */
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .image-modal.open {
+    display: flex;
+  }
+
+  .image-modal .modal-content {
+    position: relative;
+    max-width: 1200px;
+    max-height: 92vh;
+    width: 100%;
+  }
+
+  .image-modal img {
+    width: 100%;
+    height: auto;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .image-modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    font-weight: 700;
+    border: none;
+  }
+
+  .image-modal .close-btn:focus {
+    outline: 2px solid #E5554F;
+  }
+
+  /* --- VERSIONE DESKTOP (MEDIA QUERY) --- */
+  @media (min-width: 768px) {
+    .renetting-container {
+      padding: 40px;
+    }
+
+    .h1-title {
+      font-size: 42px; /* Titolo più grande su PC */
+    }
+
+    /* Griglia per le testimonianze su PC per occupare meglio lo spazio */
+    .testimonials-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    
+    .testimonial-block {
+      border-bottom: none;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      padding: 30px;
+    }
+
+    /* Gallery su PC mostra più elementi affiancati ma resta scrollabile per l'auto-advance */
+    .gallery-scroll {
+      /* manteniamo flex+overflow per poter scorrere via JS */
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+    }
+    
+    .gallery-item {
+      flex: 0 0 30%; /* Mostra ~3 immagini affiancate su desktop */
+      width: auto;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="renetting-container">
+
+  <div class="hero-image-wrapper">
+    <img src="logo.png" alt="Renetting Mani">
+  </div>
+
+  <h1 class="text-highlight h1-title">
+    NON SCROLLARE.<br>INCONTRA.
+  </h1>
+
+  <hr style="border: 0; border-top: 1px solid #eee; margin: 0;">
+
+  <div class="testimonials-wrapper">
+    
+    <div class="testimonial-block">
+      <svg class="quote-icon" viewBox="0 0 24 24">
+        <path d="M14.017 21L14.017 18C14.017 16.896 14.321 16.067 14.927 15.515C15.533 14.963 16.328 14.687 17.311 14.687H18.257V9.752H14.532C13.882 9.752 13.342 9.522 12.91 9.062C12.479 8.602 12.264 8.026 12.264 7.332V3H21.248V14.542C21.248 16.485 20.612 18.104 19.34 19.4C18.068 20.696 16.293 21.343 14.017 21ZM4.752 21L4.752 18C4.752 16.896 5.057 16.067 5.662 15.515C6.268 14.963 7.063 14.687 8.046 14.687H9.012V9.752H5.267C4.617 9.752 4.077 9.522 3.646 9.062C3.214 8.602 3 8.026 3 7.332V3H11.983V14.542C11.983 16.485 11.347 18.104 10.075 19.4C8.803 20.696 7.028 21.343 4.752 21Z" />
+      </svg>
+      <p class="quote-text">“Tutti molto carini, sarebbe bello creare un’opzione (non so se c’è già) per creare un gruppo così ci si può trovare”</p>
+    </div>
+
+    <div class="testimonial-block">
+      <svg class="quote-icon" viewBox="0 0 24 24">
+        <path d="M14.017 21L14.017 18C14.017 16.896 14.321 16.067 14.927 15.515C15.533 14.963 16.328 14.687 17.311 14.687H18.257V9.752H14.532C13.882 9.752 13.342 9.522 12.91 9.062C12.479 8.602 12.264 8.026 12.264 7.332V3H21.248V14.542C21.248 16.485 20.612 18.104 19.34 19.4C18.068 20.696 16.293 21.343 14.017 21ZM4.752 21L4.752 18C4.752 16.896 5.057 16.067 5.662 15.515C6.268 14.963 7.063 14.687 8.046 14.687H9.012V9.752H5.267C4.617 9.752 4.077 9.522 3.646 9.062C3.214 8.602 3 8.026 3 7.332V3H11.983V14.542C11.983 16.485 11.347 18.104 10.075 19.4C8.803 20.696 7.028 21.343 4.752 21Z" />
+      </svg>
+      <p class="quote-text">“Tutto molto bello, grazie!”</p>
+    </div>
+
+    <div class="testimonial-block">
+      <svg class="quote-icon" viewBox="0 0 24 24">
+        <path d="M14.017 21L14.017 18C14.017 16.896 14.321 16.067 14.927 15.515C15.533 14.963 16.328 14.687 17.311 14.687H18.257V9.752H14.532C13.882 9.752 13.342 9.522 12.91 9.062C12.479 8.602 12.264 8.026 12.264 7.332V3H21.248V14.542C21.248 16.485 20.612 18.104 19.34 19.4C18.068 20.696 16.293 21.343 14.017 21ZM4.752 21L4.752 18C4.752 16.896 5.057 16.067 5.662 15.515C6.268 14.963 7.063 14.687 8.046 14.687H9.012V9.752H5.267C4.617 9.752 4.077 9.522 3.646 9.062C3.214 8.602 3 8.026 3 7.332V3H11.983V14.542C11.983 16.485 11.347 18.104 10.075 19.4C8.803 20.696 7.028 21.343 4.752 21Z" />
+      </svg>
+      <p class="quote-text">“Lasciarci parlare anche in piccoli gruppetti senza 'forzare' le coppie sarebbe potuta essere una cosa carina. Comunque molto bello, il tempo è volato!”</p>
+    </div>
+
+    <div class="testimonial-block">
+      <svg class="quote-icon" viewBox="0 0 24 24">
+        <path d="M14.017 21L14.017 18C14.017 16.896 14.321 16.067 14.927 15.515C15.533 14.963 16.328 14.687 17.311 14.687H18.257V9.752H14.532C13.882 9.752 13.342 9.522 12.91 9.062C12.479 8.602 12.264 8.026 12.264 7.332V3H21.248V14.542C21.248 16.485 20.612 18.104 19.34 19.4C18.068 20.696 16.293 21.343 14.017 21ZM4.752 21L4.752 18C4.752 16.896 5.057 16.067 5.662 15.515C6.268 14.963 7.063 14.687 8.046 14.687H9.012V9.752H5.267C4.617 9.752 4.077 9.522 3.646 9.062C3.214 8.602 3 8.026 3 7.332V3H11.983V14.542C11.983 16.485 11.347 18.104 10.075 19.4C8.803 20.696 7.028 21.343 4.752 21Z" />
+      </svg>
+      <p class="quote-text">“Conversazioni più brevi e più scambi”</p>
+    </div>
+
+  </div>
+
+  <h2 class="text-highlight h2-title">
+    MOMENTI DEL NOSTRO<br>PRIMO EVENTO
+  </h2>
+
+  <div class="gallery-scroll" aria-label="Galleria eventi" role="list">
+    <div class="gallery-item" role="listitem">
+       <img src="1.jpg" alt="Evento 1">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="2.jpg" alt="Evento 2">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="3.jpg" alt="Evento 3">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="4.jpg" alt="Evento 4">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="5.jpg" alt="Evento 5">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="6.jpg" alt="Evento 6">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="7.jpg" alt="Evento 7">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="8.jpg" alt="Evento 8">
+    </div>
+    <div class="gallery-item" role="listitem">
+       <img src="9.jpg" alt="Evento 9">
+    </div>
+  </div>
+
+  <!-- Lightbox / anteprima (aggiunto) -->
+  <div class="image-modal" id="imageModal" role="dialog" aria-hidden="true" aria-label="Anteprima immagine">
+    <div class="modal-content" role="document">
+      <button class="close-btn" id="modalClose" aria-label="Chiudi anteprima">×</button>
+      <img id="modalImage" src="" alt="">
+    </div>
+  </div>
+
+</div>
+
+<!-- script per auto-scroll ogni 3 secondi; mette in pausa se l'utente interagisce.
+     Ora gestisce anche l'apertura dell'anteprima e la pausa durante l'anteprima -->
+<script>
+  (function(){
+    const gallery = document.querySelector('.gallery-scroll');
+    if (!gallery) return;
+    const items = Array.from(gallery.querySelectorAll('.gallery-item'));
+    if (!items.length) return;
+
+    // target immagini (per click anteprima)
+    const imgs = Array.from(gallery.querySelectorAll('img'));
+    imgs.forEach(img => img.tabIndex = 0); // rendi navigabili via tastiera
+
+    let idx = 0;
+    const intervalMs = 3000;
+    let autoTimer = null;
+
+    function scrollToIndex(i) {
+      const el = items[i];
+      if (!el) return;
+      const left = el.offsetLeft - (gallery.clientWidth - el.clientWidth) / 2;
+      gallery.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+    }
+
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(() => {
+        idx = (idx + 1) % items.length;
+        scrollToIndex(idx);
+      }, intervalMs);
+    }
+
+    function stopAuto() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    // pausa quando l'utente interagisce con lo scroll/rotella; NON pausa se l'interazione è il click sull'immagine
+    let resumeTimeout;
+    function pauseAutoTemporary(e) {
+      // se l'evento viene da un click su una <img> della gallery, non mettere in pausa
+      if (e && e.target && e.target.closest && e.target.closest('.gallery-item img')) return;
+      stopAuto();
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => startAuto(), 4000);
+    }
+
+    gallery.addEventListener('pointerdown', pauseAutoTemporary, {passive:true});
+    gallery.addEventListener('touchstart', pauseAutoTemporary, {passive:true});
+    gallery.addEventListener('wheel', pauseAutoTemporary, {passive:true});
+
+    // mantieni indice aggiornato dopo scroll manuale
+    let scrollDebounce;
+    gallery.addEventListener('scroll', () => {
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        const center = gallery.scrollLeft + gallery.clientWidth / 2;
+        let closest = 0;
+        let minDiff = Infinity;
+        items.forEach((it, i) => {
+          const itemCenter = it.offsetLeft + it.clientWidth / 2;
+          const diff = Math.abs(center - itemCenter);
+          if (diff < minDiff) { minDiff = diff; closest = i; }
+        });
+        idx = closest;
+      }, 120);
+    }, {passive:true});
+
+    // --- Lightbox / anteprima ---
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(src, alt) {
+      // non fermiamo più l'auto-scroll: la galleria continua a scorrere anche con l'anteprima aperta
+      modalImg.src = src;
+      modalImg.alt = alt || '';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // evita scroll della pagina sotto
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+      document.body.style.overflow = '';
+      // non forziamo un restart qui: l'auto-scroll resta nello stato precedente
+    }
+
+    // click su immagine apre anteprima; invocabile anche con Enter (tastiera)
+    imgs.forEach((img, i) => {
+      img.addEventListener('click', (e) => {
+        openModal(img.src, img.alt);
+      });
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(img.src, img.alt);
+        }
+      });
+    });
+
+    // chiusura con bottone, click fuori immagine o ESC
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    // inizializza centrando il primo elemento e avvia l'auto-scroll
+    scrollToIndex(0);
+    startAuto();
+  })();
+</script>
+
+</body>
+</html>
