@@ -55,6 +55,46 @@
     display: block;
   }
 
+  /* --- SEZIONE "L'EVENTO" sotto il logo --- */
+  .event-section {
+    text-align: center;
+    margin: 28px 0 36px;
+    padding: 28px 12px;
+    background: #f5eef8; /* sfondo chiaro simile allo screenshot */
+    border-radius: 10px;
+  }
+
+  .event-title {
+    font-family: 'Montserrat', sans-serif;
+    color: #E5554F;
+    font-size: 48px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+    text-shadow: 0 6px 12px rgba(0,0,0,0.06);
+  }
+
+  .event-subtitle {
+    color: #E5554F;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 8px 0 18px;
+  }
+
+  .event-paragraph {
+    color: #444;
+    font-size: 20px;
+    line-height: 1.9;
+    max-width: 900px;
+    margin: 0 auto 14px;
+  }
+
+  @media (min-width: 768px) {
+    .event-title { font-size: 72px; letter-spacing: 12px; }
+    .event-paragraph { font-size: 22px; }
+  }
+
   /* --- SEZIONE TESTIMONIANZE --- */
   .testimonial-block {
     text-align: center;
@@ -214,6 +254,15 @@
   <div class="hero-image-wrapper">
     <img src="logo.png" alt="Renetting Mani">
   </div>
+
+  <section class="event-section" aria-labelledby="evento-title">
+    <h2 id="evento-title" class="event-title">L'EVENTO</h2>
+    <p class="event-subtitle">Solo tu, senza schermi.</p>
+    <p class="event-paragraph">In un mondo pieno di scroll infiniti, noi vogliamo riportare al centro le persone vere.</p>
+    <p class="event-paragraph">Zero filtri, zero like, solo conversazioni autentiche.</p>
+    <p class="event-paragraph">Immagina: 10 minuti faccia a faccia con qualcuno che ancora non conosci, una card che rompe il ghiaccio e… il resto lo fai tu.</p>
+    <p class="event-paragraph">Un mini “speed dating” non per trovare per forza l’amore, ma per ritrovare qualcosa di ancora più raro: connessioni reali.</p>
+  </section>
 
   <h1 class="text-highlight h1-title">
     NON SCROLLARE.<br>INCONTRA.
